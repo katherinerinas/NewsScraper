@@ -14,9 +14,13 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(express.static("public"));
 
-mongoose.Promise = Promise;
 mongoose.connect("mongodb://localhost:27017/newsscraper");
-//this route is probably wrong! Also, need to write code to push result object into results array.
+var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
+
+ mongoose.Promise = Promise;
+ mongoose.connect(MONGODB_URI, {
+  useMongoClient: true
+});
 
 var db = require("./models");
 
